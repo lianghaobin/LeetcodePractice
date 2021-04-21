@@ -43,6 +43,8 @@
 
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 //Java：Two Sum
 class P1TwoSum {
@@ -53,24 +55,35 @@ class P1TwoSum {
         test[1] = 7;
         test[2] = 11;
         test[3] = 15;
-        System.out.println(Arrays.toString(solution.twoSum(test,9)));
+        System.out.println(Arrays.toString(solution.twoSum(test, 9)));
     }
 
-    //leetcode submit region begin(Prohibit modification and deletion)
+    // leetcode submit region begin(Prohibit modification and deletion)
     class Solution {
+        // 暴力枚举
+        //        public int[] twoSum(int[] nums, int target) {
+        //            int n = nums.length;
+        //            for (int i = 0; i < n; ++i) {
+        //                for (int j = i + 1; j < n; ++j) {
+        //                    if (nums[i] + nums[j] == target) {
+        //                        return new int[]{i, j};
+        //                    }
+        //                }
+        //            }
+        //            return new int[0];
+        //        }
+
+        // 哈希表
         public int[] twoSum(int[] nums, int target) {
-            int[] a = new int[2];
-            for(int i = 0;i<nums.length;i++){
-                for(int y = (i+1);y<nums.length;y++){
-                    if(target == (nums[i]+nums[y])){
-                        a[0]=i;
-                        a[1]=y;
-                    }
+            HashMap<Integer, Integer> hashMap = new HashMap<>();
+            for (int i = 0; i < nums.length; i++) {
+                if (hashMap.containsKey(target - nums[i])) {
+                    return new int[]{hashMap.get(target - nums[i]), i};
                 }
+                hashMap.put(nums[i], i);
             }
-            return a;
+            return new int[0];
         }
     }
-    //leetcode submit region end(Prohibit modification and deletion)
-
+    // leetcode submit region end(Prohibit modification and deletion)
 }
